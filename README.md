@@ -138,12 +138,17 @@ An Example Review:
 
 
 * (5 points) Integrate user authentication
-    * I'm going to be using passport for user authentication
-    * And account has been made for testing; I'll email you the password
+    * What is it? User authentication is the process of verifying the identity of a user who wants to access a web application. It usually involves asking the user to enter a username and password, and then checking these credentials against a database of authorized users.
+  * Why use it? User authentication is an essential security measure for web applications that handle sensitive data or require user-specific functionality. By requiring users to authenticate themselves before accessing the application, you can prevent unauthorized access and protect user data.
+  * List of possible candidate modules or solutions: Passport, Firebase Auth, Okta
 * (4 points) Perform client side form validation using a JavaScript library
-    * if you put in a number that's greater than 5, an error message will appear in the dom
+    * What is it? Client-side form validation is the process of checking user input on a web form before it is submitted to the server. This is usually done using JavaScript, and it helps to prevent the user from submitting invalid or incomplete data.
+    * Why use it? Client-side form validation can improve the user experience by providing immediate feedback on invalid input and reducing the number of server requests with invalid data. It also helps to ensure data integrity and consistency in the application's database.
+    * List of possible candidate modules or solutions: jQuery Validation Plugin, Parsley.js, VeeValidate
 * (5 points) ReactJS
-    * used ReactJS as the frontend framework; it's a challenging library to learn, so I've assigned it 5 points
+    * What is it? ReactJS is a popular JavaScript library for building user interfaces. It allows developers to build complex, interactive UI components using a declarative syntax and a component-based architecture.
+    * Why use it? ReactJS makes it easier to build large-scale web applications by breaking down complex UI components into smaller, reusable pieces. It also provides tools for managing state and handling user interactions, making it easier to build robust and responsive applications.
+    * List of possible candidate modules or solutions: Redux, React Router, Material-UI
 
 
 
