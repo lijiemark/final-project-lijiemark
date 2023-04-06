@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './Login.css';
-
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import { UserContext } from '../context/UserContext.mjs';
 function Login() {
+  const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
+
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
@@ -10,15 +15,31 @@ function Login() {
     event.preventDefault();
 
     try {
-      console.log(email);
       const response = await axios.post('http://localhost:3001/login', {
         email: email,
         password: password,
       });
+      console.log(email);
+
+      console.log("here's the response:");
       console.log(response.data);
+      if (response.status === 200) {
+        console.log("here before creating the post");
+        console.log(email);
+        setUser(email);
+        navigate(`/createPost/${email}`, { state: { user: email } });
+      } else {
+        // Handle unsuccessful authentication (e.g., display an error message)
+        console.error("Authentication failed.");
+      }
     } catch (error) {
       console.error(error);
     }
+
+    // navigate(`/`);
+
+
+
   };
 
   return (

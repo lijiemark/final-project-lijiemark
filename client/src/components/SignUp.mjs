@@ -1,12 +1,18 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './SignUp.css';
+import { useNavigate } from 'react-router-dom';
 
+import { useContext } from 'react';
+import { UserContext } from '../context/UserContext.mjs';
 function SignUp() {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const { setUser } = useContext(UserContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -24,6 +30,9 @@ function SignUp() {
         password: password,
       });
       console.log(response.data);
+      setUser(email);
+      navigate(`/createPost/${email}`, { state: { user: email } });
+
     } catch (error) {
       console.log("here eroor!!");
       console.error(error);

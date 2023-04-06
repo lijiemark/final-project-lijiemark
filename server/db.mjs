@@ -79,6 +79,7 @@ const Post = new mongoose.Schema({
   week: { type: String, required: true },
   day: { type: String, required: true },
   title: { type: String, required: true },
+  content: { type: String, required: true },
   trainingList: { type: mongoose.Schema.Types.ObjectId, ref: 'TrainingList' },
   dietList: { type: mongoose.Schema.Types.ObjectId, ref: 'DietList' },
   review: { type: mongoose.Schema.Types.ObjectId, ref: 'Review' },
@@ -87,6 +88,54 @@ const Post = new mongoose.Schema({
 
 
 // TODO: add remainder of setup for slugs, connection, registering models, etc. below
+// Add the following functions
+
+export async function createUserPost(req, res) {
+  const { email, title, content, week, day } = req.body;
+  console.log("Request body:", req.body);
+
+  try {
+    const user = await UserModel.findOne({ email });
+    console.log("Found user:", user);
+
+    const newPost = new PostModel({
+      user: user._id,
+      title: title,
+      content: content,
+      week: week,
+      day: day,
+      createdAt: new Date(),
+    });
+    console.log("New post:", newPost);
+
+    const savedPost = await newPost.save();
+    console.log("Saved post:", savedPost);
+    res.status(201).json(savedPost);
+  } catch (err) {
+    console.log("Error caught:", err);
+    res.status(400).json({ message: err.message });
+  }
+}
+
+export async function getUserPosts(req, res) {
+  try {
+    const user = await UserModel.findOne({ email: req.params.email });
+    const posts = await PostModel.find({ user: user._id });
+    res.status(200).json(posts);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
+
+export async function getUser(req, res) {
+  try {
+    const user = await UserModel.findOne({ email: req.params.email });
+    console.log("i'm here getting the user.");
+    res.status(200).json(user);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+}
 
 export const UserModel = mongoose.model('User', User);
 export const TrainingListItemModel = mongoose.model('TrainingListItem', TrainingListItem);

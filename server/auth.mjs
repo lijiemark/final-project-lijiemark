@@ -52,5 +52,18 @@ export async function login(req, res) {
 
   // Create a JWT and send it to the client
   const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
-  res.json({ token });
+  // res.json({ token });
+  // Set the token as a cookie
+  res.cookie('jwt', token, { httpOnly: true });
+
+  // Send a success status and the email
+  res.status(200).json({ email: user.email });
+}
+
+export function logout(req, res) {
+  // Clear the JWT token cookie
+  res.clearCookie('jwt');
+
+  // Redirect to the login page
+  res.redirect('/login');
 }
