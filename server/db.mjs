@@ -16,6 +16,7 @@ try {
 // * they also can have 0 or more posts
 const User = new mongoose.Schema({
   username: { type: String, required: true },
+  email: { type: String, required: true },
   hash: { type: String, required: true },
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }]
 });
