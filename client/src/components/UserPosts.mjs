@@ -2,14 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UserPosts.css';
 
-import dotenv from 'dotenv';
-dotenv.config();
+
 function UserPosts({ email }) {
   const [posts, setPosts] = useState([]);
   const handleDelete = async (postId) => {
     try {
       // await axios.delete(`http://localhost:3001/deletePost/${postId}`);
-      await axios.delete(`${process.env.REACT_APP_API_URL}/deletePost/${postId}`);
+      await axios.delete(`https://lijie-fit-journal.herokuapp.com/deletePost/${postId}`);
 
       // Filter out the deleted post from the posts state
       setPosts(posts.filter((post) => post._id !== postId));
@@ -20,7 +19,7 @@ function UserPosts({ email }) {
   useEffect(() => {
     const fetchPosts = async () => {
       // const response = await axios.get(`http://localhost:3001/posts/${email}`);
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/posts/${email}`);
+      const response = await axios.get(`https://lijie-fit-journal.herokuapp.com/posts/${email}`);
       setPosts(response.data);
     };
     fetchPosts();

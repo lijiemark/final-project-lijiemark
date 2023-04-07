@@ -5,8 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext.mjs';
 
-import dotenv from 'dotenv';
-dotenv.config();
+
 function Login() {
   const navigate = useNavigate();
   const { setUser } = useContext(UserContext);
@@ -19,7 +18,7 @@ function Login() {
 
     try {
       // const response = await axios.post('http://localhost:3001/login', {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, {
+      const response = await axios.post(`https://lijie-fit-journal.herokuapp.com/login`, {
 
         email: email,
         password: password,

@@ -3,8 +3,7 @@ import axios from 'axios';
 import './CreatePost.css';
 import { useNavigate } from 'react-router-dom';
 
-import dotenv from 'dotenv';
-dotenv.config();
+
 function CreatePost({ email }) {
   const navigate = useNavigate();
 
@@ -17,7 +16,7 @@ function CreatePost({ email }) {
   useEffect(() => {
     const fetchUser = async () => {
       // const response = await axios.get(`http://localhost:3001/user/${email}`);
-      const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/${email}`);
+      const response = await axios.get(`https://lijie-fit-journal.herokuapp.com//user/${email}`);
 
       console.log(email);
 
@@ -31,7 +30,7 @@ function CreatePost({ email }) {
 
     try {
       // await axios.post('http://localhost:3001/createPost', {
-      await axios.post(`${process.env.REACT_APP_API_URL}/createPost`, {
+      await axios.post(`https://lijie-fit-journal.herokuapp.com//createPost`, {
 
         email,
         title,
