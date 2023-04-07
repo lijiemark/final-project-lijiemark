@@ -20,7 +20,7 @@ function UserPosts({ email }) {
       // const response = await axios.get(`http://localhost:3001/posts/${email}`);
       const response = await axios.get(`${process.env.REACT_APP_API_URL}/posts/${email}`);
 
-      setPosts(response.data); s
+      setPosts(response.data);
     };
     fetchPosts();
   }, [email]);
