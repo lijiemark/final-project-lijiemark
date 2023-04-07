@@ -18,7 +18,7 @@ function Login() {
 
     try {
       // const response = await axios.post('http://localhost:3001/login', {
-      const response = await axios.post(`https://lijie-fit-journal.herokuapp.com/login`, {
+      const response = await axios.post('https://lijie-fit-journal.herokuapp.com/login', {
 
         email: email,
         password: password,

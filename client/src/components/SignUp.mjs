@@ -27,7 +27,7 @@ function SignUp() {
     try {
       console.log(username);
       // const response = await axios.post('http://localhost:3001/signup', {
-      const response = await axios.post(`https://lijie-fit-journal.herokuapp.com/signup`, {
+      const response = await axios.post('https://lijie-fit-journal.herokuapp.com/signup', {
 
         username: username,
         email: email,
