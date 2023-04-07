@@ -7,7 +7,6 @@ try {
   // await mongoose.connect('mongodb://localhost/fitJournal', { useNewUrlParser: true });
   //connect to mongo atlas
   // console.log('MONGO_URI:', process.env.MONGO_URI)
-
   await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true });
   console.log('Successfully connected to database.')
 } catch (err) {
