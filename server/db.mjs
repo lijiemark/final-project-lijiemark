@@ -1,9 +1,14 @@
 import mongoose from 'mongoose';
 
-
+import dotenv from 'dotenv';
+dotenv.config();
 console.log('Waiting for connection to database...')
 try {
-  await mongoose.connect('mongodb://localhost/fitJournal', { useNewUrlParser: true });
+  // await mongoose.connect('mongodb://localhost/fitJournal', { useNewUrlParser: true });
+  //connect to mongo atlas
+  // console.log('MONGO_URI:', process.env.MONGO_URI)
+
+  await mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true });
   console.log('Successfully connected to database.')
 } catch (err) {
   console.log('ERROR: ', err);
