@@ -26,7 +26,7 @@ async function getPostsByUser(userId) {
 }
 app.use('/api', router);
 app.use(express.json());
-app.use(cors());
+app.use(cors({ origin: 'https://final-project-lijiemark-fozb3pj91-lijiemark.vercel.app', credentials: true }));
 
 app.get('/', (req, res) => {
   res.send('Home');
