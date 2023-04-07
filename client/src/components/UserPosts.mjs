@@ -6,7 +6,9 @@ function UserPosts({ email }) {
   const [posts, setPosts] = useState([]);
   const handleDelete = async (postId) => {
     try {
-      await axios.delete(`http://localhost:3001/deletePost/${postId}`);
+      // await axios.delete(`http://localhost:3001/deletePost/${postId}`);
+      await axios.delete(`${process.env.REACT_APP_API_URL}/deletePost/${postId}`);
+
       // Filter out the deleted post from the posts state
       setPosts(posts.filter((post) => post._id !== postId));
     } catch (error) {
@@ -15,8 +17,10 @@ function UserPosts({ email }) {
   };
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await axios.get(`http://localhost:3001/posts/${email}`);
-      setPosts(response.data);
+      // const response = await axios.get(`http://localhost:3001/posts/${email}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/posts/${email}`);
+
+      setPosts(response.data); s
     };
     fetchPosts();
   }, [email]);

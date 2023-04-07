@@ -14,7 +14,9 @@ function CreatePost({ email }) {
   const [day, setDay] = useState('');
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await axios.get(`http://localhost:3001/user/${email}`);
+      // const response = await axios.get(`http://localhost:3001/user/${email}`);
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/user/${email}`);
+
       console.log(email);
 
       setUsername(response.data.username);
@@ -26,7 +28,9 @@ function CreatePost({ email }) {
     event.preventDefault();
 
     try {
-      await axios.post('http://localhost:3001/createPost', {
+      // await axios.post('http://localhost:3001/createPost', {
+      await axios.post(`${process.env.REACT_APP_API_URL}/createPost`, {
+
         email,
         title,
         content,
