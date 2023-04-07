@@ -58,10 +58,10 @@ app.post('/signup', signup);
 app.post('/login', login);
 
 app.post('/createPost', createUserPost);
-app.get('/user/:email', getUser);
-app.get('/posts/:email', getUserPosts);
+app.get('user/:email', getUser);
+app.get('posts/:email', getUserPosts);
 
-app.delete('/deletePost/:id', async (req, res) => {
+app.delete('deletePost/:id', async (req, res) => {
   try {
     const { id } = req.params;
     await PostModel.findByIdAndDelete(id);
@@ -94,9 +94,9 @@ app.delete('/deletePost/:id', async (req, res) => {
 // });
 
 
-app.post('/login', login);
+// app.post('/login', login);
 
-app.post('/signup', signup);
+// app.post('/signup', signup);
 app.get('/logout', logout);
 
 
