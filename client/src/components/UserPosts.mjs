@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './UserPosts.css';
 
+import dotenv from 'dotenv';
+dotenv.config();
 function UserPosts({ email }) {
   const [posts, setPosts] = useState([]);
   const handleDelete = async (postId) => {

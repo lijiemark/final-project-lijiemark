@@ -3,6 +3,8 @@ import axios from 'axios';
 import './CreatePost.css';
 import { useNavigate } from 'react-router-dom';
 
+import dotenv from 'dotenv';
+dotenv.config();
 function CreatePost({ email }) {
   const navigate = useNavigate();
 

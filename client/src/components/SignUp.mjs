@@ -5,6 +5,9 @@ import { useNavigate } from 'react-router-dom';
 
 import { useContext } from 'react';
 import { UserContext } from '../context/UserContext.mjs';
+
+import dotenv from 'dotenv';
+dotenv.config();
 function SignUp() {
   const navigate = useNavigate();
 
