@@ -6,6 +6,8 @@ import { login } from './auth.mjs';
 import { logout } from './auth.mjs';
 import { UserModel } from './db.mjs';
 import { PostModel } from './db.mjs';
+import { TrainingListModel } from './db.mjs';
+
 import { createUserPost, getUserPosts, getUser } from './db.mjs';
 
 // import homeRouter from './home.mjs';
@@ -62,10 +64,60 @@ app.post('/login', login);
 app.post('/createPost', createUserPost);
 app.get('/user/:email', getUser);
 app.get('/posts/:email', getUserPosts);
+app.get('/post/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    const post = await PostModel.findById(id)
+      .populate('trainingList')
+      .populate('dietList')
+      .populate('review');
+    res.status(200).json(post);
+  } catch (error) {
+    console.error('Server error:', error);
+    res.status(500).send({ error: 'Server error: Unable to get post' });
+  }
+});
+app.get('/editpost/:id', async (req, res) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+    const post = await PostModel.findById(id).populate('trainingList');
+    res.status(200).json(post);
+  } catch (error) {
+    console.error('Server error:', error);
+    console.log("we're trying to get the post");
+
+    res.status(500).send({ error: 'Server error: Unable to get post' });
+  }
+});
+
+app.put('/editpost/:id', async (req, res) => {
+  const { title, content, trainingList } = req.body;
+
+  try {
+    const post = await PostModel.findById(req.params.id);
+    post.title = title;
+    post.content = content;
+    await post.save();
+
+    if (trainingList) {
+      const trainingListToUpdate = await TrainingListModel.findById(post.trainingList);
+      trainingListToUpdate.items = trainingList;
+      await trainingListToUpdate.save();
+    }
+
+    res.status(200).send({ message: 'Post and training list updated successfully' });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: 'Failed to update post and training list' });
+  }
+});
+
 
 app.delete('/deletePost/:id', async (req, res) => {
   try {
     const { id } = req.params;
+    console.log(id);
     await PostModel.findByIdAndDelete(id);
     res.status(200).send({ message: 'Post deleted successfully' });
   } catch (error) {

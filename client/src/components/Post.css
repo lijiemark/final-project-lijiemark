@@ -1,0 +1,36 @@
+.post {
+  margin: 20px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.post h1 {
+  font-size: 32px;
+  margin-bottom: 10px;
+}
+
+.post p {
+  font-size: 18px;
+  line-height: 1.5;
+  margin-bottom: 20px;
+}
+
+.post ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.post li {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.post li:before {
+  content: "•";
+  margin-right: 5px;
+  color: #555;
+}

@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 function CreatePost({ email }) {
   const navigate = useNavigate();
+  const [trainingListItems, setTrainingListItems] = useState([]);
 
   console.log("in create post.mjs");
   const [username, setUsername] = useState('');
@@ -15,7 +16,8 @@ function CreatePost({ email }) {
   const [day, setDay] = useState('');
   useEffect(() => {
     const fetchUser = async () => {
-      const response = await axios.get(`https://lijie-fit-journal.herokuapp.com/user/${email}`);
+      // const response = await axios.get(`https://lijie-fit-journal.herokuapp.com/user/${email}`);
+      const response = await axios.get(`http://localhost:3001/user/${email}`);
 
       console.log(email);
 
@@ -28,14 +30,15 @@ function CreatePost({ email }) {
     event.preventDefault();
 
     try {
-      // await axios.post('http://localhost:3001/createPost', {
-      await axios.post(`https://lijie-fit-journal.herokuapp.com/createPost`, {
+      await axios.post('http://localhost:3001/createPost', {
+        // await axios.post(`https://lijie-fit-journal.herokuapp.com/createPost`, {
 
         email,
         title,
         content,
         week,
         day,
+        trainingListItems,
       }); navigate(`/userPosts/${email}`);
 
     } catch (error) {
@@ -92,9 +95,89 @@ function CreatePost({ email }) {
             required
           />
         </div>
+        <div className="form-group">
+          <label htmlFor="trainingList">Training List</label>
+          {trainingListItems.map((item, index) => (
+            <div key={index}>
+              <input
+                type="text"
+                placeholder="Training item"
+                value={item.name}
+                onChange={(e) =>
+                  setTrainingListItems([
+                    ...trainingListItems.slice(0, index),
+                    { ...item, name: e.target.value },
+                    ...trainingListItems.slice(index + 1),
+                  ])
+                }
+              />
+              <input
+                type="text"
+                placeholder="Sets"
+                value={item.sets}
+                onChange={(e) =>
+                  setTrainingListItems([
+                    ...trainingListItems.slice(0, index),
+                    { ...item, sets: e.target.value },
+                    ...trainingListItems.slice(index + 1),
+                  ])
+                }
+              />
+              <input
+                type="text"
+                placeholder="Reps"
+                value={item.reps}
+                onChange={(e) =>
+                  setTrainingListItems([
+                    ...trainingListItems.slice(0, index),
+                    { ...item, reps: e.target.value },
+                    ...trainingListItems.slice(index + 1),
+                  ])
+                }
+              />
+              <input
+                type="text"
+                placeholder="Intervals"
+                value={item.intervals}
+                onChange={(e) =>
+                  setTrainingListItems([
+                    ...trainingListItems.slice(0, index),
+                    { ...item, intervals: e.target.value },
+                    ...trainingListItems.slice(index + 1),
+                  ])
+                }
+              />
+              <input
+                type="checkbox"
+                checked={item.checked}
+                onChange={(e) =>
+                  setTrainingListItems([
+                    ...trainingListItems.slice(0, index),
+                    { ...item, checked: e.target.checked },
+                    ...trainingListItems.slice(index + 1),
+                  ])
+                }
+              />
+            </div>
+          ))}
+          <button
+            type="button"
+            onClick={() =>
+              setTrainingListItems([
+                ...trainingListItems,
+                { name: '', sets: '', reps: '', intervals: '', checked: false },
+              ])
+            }
+          >
+            Add Item
+          </button>
+        </div>
         <button type="submit">Submit Post</button>
+
       </form>
+
     </div>
+
   );
 }
 

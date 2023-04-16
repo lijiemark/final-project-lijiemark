@@ -94,13 +94,50 @@ const Post = new mongoose.Schema({
 // TODO: add remainder of setup for slugs, connection, registering models, etc. below
 // Add the following functions
 
+// export async function createUserPost(req, res) {
+//   const { email, title, content, week, day } = req.body;
+//   console.log("Request body:", req.body);
+
+//   try {
+//     const user = await UserModel.findOne({ email });
+//     console.log("Found user:", user);
+
+//     const newPost = new PostModel({
+//       user: user._id,
+//       title: title,
+//       content: content,
+//       week: week,
+//       day: day,
+//       createdAt: new Date(),
+//     });
+//     console.log("New post:", newPost);
+
+//     const savedPost = await newPost.save();
+//     console.log("Saved post:", savedPost);
+//     res.status(201).json(savedPost);
+//   } catch (err) {
+//     console.log("Error caught:", err);
+//     res.status(400).json({ message: err.message });
+//   }
+// }
 export async function createUserPost(req, res) {
-  const { email, title, content, week, day } = req.body;
-  console.log("Request body:", req.body);
+  const { email, title, content, week, day, trainingListItems } = req.body;
 
   try {
     const user = await UserModel.findOne({ email });
-    console.log("Found user:", user);
+
+    const newTrainingList = new TrainingListModel({
+      user: user._id,
+      name: `Training List for Week ${week}, Day ${day}`,
+      createdAt: new Date(),
+      items: trainingListItems.map((item) => ({
+        name: item.name,
+        sets: item.sets,
+        reps: item.reps,
+        intervals: item.intervals,
+        checked: false,
+      })),
+    });
 
     const newPost = new PostModel({
       user: user._id,
@@ -108,18 +145,22 @@ export async function createUserPost(req, res) {
       content: content,
       week: week,
       day: day,
+      trainingList: newTrainingList._id,
       createdAt: new Date(),
     });
-    console.log("New post:", newPost);
 
+    const savedTrainingList = await newTrainingList.save();
     const savedPost = await newPost.save();
-    console.log("Saved post:", savedPost);
-    res.status(201).json(savedPost);
+
+    res.status(201).json({
+      post: savedPost,
+      trainingList: savedTrainingList,
+    });
   } catch (err) {
-    console.log("Error caught:", err);
     res.status(400).json({ message: err.message });
   }
 }
+
 
 export async function getUserPosts(req, res) {
   try {

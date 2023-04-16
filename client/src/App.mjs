@@ -5,13 +5,15 @@ import SignUp from './components/SignUp.mjs';
 import Home from './components/Home.mjs';
 import CreatePost from './components/CreatePost.mjs';
 import UserPosts from './components/UserPosts.mjs';
+import EditPost from './components/EditPost.mjs';
+import Post from './components/Post.mjs';
 import { useParams } from 'react-router-dom';
 import Navbar from './components/Navbar.mjs';
 import { UserContextProvider } from './context/UserContext.mjs';
 
-function EmailRouteWrapper({ children }) {
+function EmailRouteWrapper({ children, ...rest }) {
   const { email } = useParams();
-  return React.cloneElement(children, { email });
+  return React.cloneElement(children, { email, ...rest });
 }
 function App() {
   return (
@@ -31,7 +33,23 @@ function App() {
                 <CreatePost />
               </EmailRouteWrapper>
             }
-          />         <Route
+          />
+          <Route
+            path="/post/:id/:email"
+            element={
+              <EmailRouteWrapper>
+                <Post />
+              </EmailRouteWrapper>
+            }
+          />
+
+          <Route
+            path="/edit-post/:id/:email"
+            element={<EmailRouteWrapper>
+              <EditPost />
+            </EmailRouteWrapper>}
+          />
+          <Route
             path="/userPosts/:email"
             element={
               <EmailRouteWrapper>
