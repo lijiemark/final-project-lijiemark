@@ -16,8 +16,8 @@ function CreatePost({ email }) {
   const [day, setDay] = useState('');
   useEffect(() => {
     const fetchUser = async () => {
-      // const response = await axios.get(`https://lijie-fit-journal.herokuapp.com/user/${email}`);
-      const response = await axios.get(`http://localhost:3001/user/${email}`);
+      const response = await axios.get(`https://lijie-fit-journal.herokuapp.com/user/${email}`);
+      // const response = await axios.get(`http://localhost:3001/user/${email}`);
 
       console.log(email);
 
@@ -30,8 +30,8 @@ function CreatePost({ email }) {
     event.preventDefault();
 
     try {
-      await axios.post('http://localhost:3001/createPost', {
-        // await axios.post(`https://lijie-fit-journal.herokuapp.com/createPost`, {
+      // await axios.post('http://localhost:3001/createPost', {
+      await axios.post(`https://lijie-fit-journal.herokuapp.com/createPost`, {
 
         email,
         title,
