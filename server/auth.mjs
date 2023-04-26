@@ -57,7 +57,9 @@ export async function login(req, res) {
   // res.cookie('jwt', token, { httpOnly: true });
 
   // Send a success status and the email
-  res.status(200).json({ email: user.email });
+  // res.status(200).json({ email: user.email });
+  res.status(200).json(user);
+
 }
 
 export function logout(req, res) {

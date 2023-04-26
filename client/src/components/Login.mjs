@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Login.css';
 import { useNavigate } from 'react-router-dom';
@@ -8,7 +8,7 @@ import { UserContext } from '../context/UserContext.mjs';
 
 function Login() {
   const navigate = useNavigate();
-  const { setUser } = useContext(UserContext);
+  const { user, setUser } = useContext(UserContext);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,8 +17,8 @@ function Login() {
     event.preventDefault();
 
     try {
-      // const response = await axios.post('http://localhost:3001/login', {
-      const response = await axios.post('https://lijie-fit-journal.herokuapp.com/login', {
+      const response = await axios.post('http://localhost:3001/login', {
+        // const response = await axios.post('https://lijie-fit-journal.herokuapp.com/login', {
 
         email: email,
         password: password,
@@ -30,8 +30,10 @@ function Login() {
       if (response.status === 200) {
         console.log("here before creating the post");
         console.log(email);
-        setUser(email);
-        navigate(`/createPost/${email}`, { state: { user: email } });
+        setUser({ username: response.data.username, email: response.data.email });
+        // navigate(`/createPost/${email}`, { state: { user: email } });
+        navigate(`/createPost`);
+
       } else {
         // Handle unsuccessful authentication (e.g., display an error message)
         console.error("Authentication failed.");
@@ -45,6 +47,12 @@ function Login() {
 
 
   };
+  useEffect(() => {
+    if (user) {
+      localStorage.setItem("userEmail", user);
+      localStorage.setItem("lastActive", Date.now());
+    }
+  }, [user]);
 
   return (
     <div className="login-container">

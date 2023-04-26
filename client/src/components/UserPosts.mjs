@@ -1,15 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../context/UserContext.mjs';
+
 import axios from 'axios';
 import './UserPosts.css';
 import { Link } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 
-function UserPosts({ email }) {
+function UserPosts({ }) {
+  // const { email } = useParams();
+  const { user } = useContext(UserContext);
+  const email = user.email;
+
   const [posts, setPosts] = useState([]);
   const handleDelete = async (postId) => {
     try {
-      // await axios.delete(`http://localhost:3001/deletePost/${postId}`);
-      await axios.delete(`https://lijie-fit-journal.herokuapp.com/deletePost/${postId}`);
+      await axios.delete(`http://localhost:3001/deletePost/${postId}`);
+      // await axios.delete(`https://lijie-fit-journal.herokuapp.com/deletePost/${postId}`);
 
       // Filter out the deleted post from the posts state
       setPosts(posts.filter((post) => post._id !== postId));
@@ -19,8 +26,8 @@ function UserPosts({ email }) {
   };
   useEffect(() => {
     const fetchPosts = async () => {
-      // const response = await axios.get(`http://localhost:3001/posts/${email}`);
-      const response = await axios.get(`https://lijie-fit-journal.herokuapp.com/posts/${email}`);
+      const response = await axios.get(`http://localhost:3001/posts/${email}`);
+      // const response = await axios.get(`https://lijie-fit-journal.herokuapp.com/posts/${email}`);
       setPosts(response.data);
     };
     fetchPosts();

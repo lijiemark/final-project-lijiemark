@@ -1,46 +1,34 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import axios from 'axios';
 import './CreatePost.css';
 import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../context/UserContext.mjs';
 
-
-function CreatePost({ email }) {
+function CreatePost() {
   const navigate = useNavigate();
-  const [trainingListItems, setTrainingListItems] = useState([]);
-
-  console.log("in create post.mjs");
-  const [username, setUsername] = useState('');
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
+  const { user, setUser } = useContext(UserContext);
+  console.log(user);
+
   const [week, setWeek] = useState('');
   const [day, setDay] = useState('');
-  useEffect(() => {
-    const fetchUser = async () => {
-      const response = await axios.get(`https://lijie-fit-journal.herokuapp.com/user/${email}`);
-      // const response = await axios.get(`http://localhost:3001/user/${email}`);
-
-      console.log(email);
-
-      setUsername(response.data.username);
-    };
-    fetchUser();
-  }, [email]);
+  const [trainingListItems, setTrainingListItems] = useState([{ name: '', sets: '', reps: '', intervals: '', checked: false }]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-
     try {
-      // await axios.post('http://localhost:3001/createPost', {
-      await axios.post(`https://lijie-fit-journal.herokuapp.com/createPost`, {
-
-        email,
-        title,
-        content,
-        week,
-        day,
-        trainingListItems,
-      }); navigate(`/userPosts/${email}`);
-
+      await axios.post('http://localhost:3001/createPost', {
+        title: title,
+        content: content,
+        email: user.email,
+        week: week,
+        day: day,
+        trainingListItems: trainingListItems
+      });
+      setTitle('');
+      setContent('');
+      navigate('/userPosts');
     } catch (error) {
       console.error(error);
     }
@@ -48,7 +36,7 @@ function CreatePost({ email }) {
 
   return (
     <div className="create-post-container">
-      <h1>Welcome, {username} ({email})</h1>
+      <h1>Welcome, ({user.username}) ({user.email})</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="title">Title</label>

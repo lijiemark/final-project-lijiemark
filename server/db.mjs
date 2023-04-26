@@ -122,6 +122,7 @@ const Post = new mongoose.Schema({
 // }
 export async function createUserPost(req, res) {
   const { email, title, content, week, day, trainingListItems } = req.body;
+  console.log('Request body:', req.body);
 
   try {
     const user = await UserModel.findOne({ email });
@@ -157,6 +158,7 @@ export async function createUserPost(req, res) {
       trainingList: savedTrainingList,
     });
   } catch (err) {
+    console.error('Error occurred in createUserPost:', err);
     res.status(400).json({ message: err.message });
   }
 }

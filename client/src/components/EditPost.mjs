@@ -16,8 +16,8 @@ function EditPost({ history }) {
     const fetchPost = async () => {
       console.log(id);
       console.log(email);
-      // const response = await axios.get(`http://localhost:3001/editpost/${id}`);
-      const response = await axios.get(`https://lijie-fit-journal.herokuapp.com/editpost/${id}`);
+      const response = await axios.get(`http://localhost:3001/editpost/${id}`);
+      // const response = await axios.get(`https://lijie-fit-journal.herokuapp.com/editpost/${id}`);
 
       setPost(response.data);
       setTitle(response.data.title);
@@ -54,10 +54,10 @@ function EditPost({ history }) {
     e.preventDefault();
 
     try {
-      // await axios.put(`http://localhost:3001/editpost/${post._id}`, { title, content, trainingList });
-      await axios.put(`https://lijie-fit-journal.herokuapp.com/editpost/${post._id}`, { title, content, trainingList });
+      await axios.put(`http://localhost:3001/editpost/${post._id}`, { title, content, trainingList });
+      // await axios.put(`https://lijie-fit-journal.herokuapp.com/editpost/${post._id}`, { title, content, trainingList });
 
-      navigate(`/userPosts/${email}`); // Replace with the route where you display the user posts
+      navigate(`/userPosts`); // Replace with the route where you display the user posts
     } catch (error) {
       console.error(error);
     }

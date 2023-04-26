@@ -9,8 +9,8 @@ function Post({ email }) {
 
   useEffect(() => {
     const fetchPost = async () => {
-      // const response = await axios.get(`http://localhost:3001/post/${id}`);
-      const response = await axios.get(`https://lijie-fit-journal.herokuapp.com/post/${id}`);
+      const response = await axios.get(`http://localhost:3001/post/${id}`);
+      // const response = await axios.get(`https://lijie-fit-journal.herokuapp.com/post/${id}`);
 
       setPost(response.data);
     };
