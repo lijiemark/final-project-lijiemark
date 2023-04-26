@@ -11,6 +11,7 @@ function CreatePost() {
   const { user, setUser } = useContext(UserContext);
   console.log(user);
 
+
   const [week, setWeek] = useState('');
   const [day, setDay] = useState('');
   const [trainingListItems, setTrainingListItems] = useState([{ name: '', sets: '', reps: '', intervals: '', checked: false }]);

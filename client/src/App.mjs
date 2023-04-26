@@ -7,10 +7,10 @@ import CreatePost from './components/CreatePost.mjs';
 import UserPosts from './components/UserPosts.mjs';
 import EditPost from './components/EditPost.mjs';
 import Post from './components/Post.mjs';
-import { useParams } from 'react-router-dom';
 import Navbar from './components/Navbar.mjs';
 import { UserContextProvider } from './context/UserContext.mjs';
 import PrivateRoute from "./components/PrivateRoute.mjs";
+
 function App() {
   return (
     <Router>

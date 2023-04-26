@@ -32,6 +32,16 @@ function UserPosts({ }) {
     };
     fetchPosts();
   }, [email]);
+  useEffect(() => {
+    console.log("in here!");
+    console.log(user);
+    if (user) {
+      console.log("Saving user to localStorage:", user);
+      console.log("here!!!!!!!!!!!!!!!!!!!");
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("lastActive", Date.now());
+    }
+  }, [user]);
 
   return (
     <div className="user-posts">

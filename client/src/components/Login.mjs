@@ -12,6 +12,16 @@ function Login() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  useEffect(() => {
+    console.log("in here!");
+    console.log(user);
+    if (user) {
+      console.log("Saving user to localStorage:", user);
+      console.log("here!!!!!!!!!!!!!!!!!!!");
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("lastActive", Date.now());
+    }
+  }, [user]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -31,8 +41,12 @@ function Login() {
         console.log("here before creating the post");
         console.log(email);
         setUser({ username: response.data.username, email: response.data.email });
-        // navigate(`/createPost/${email}`, { state: { user: email } });
-        navigate(`/createPost`);
+        console.log("User set:", user);
+        console.log("setUser called");
+        // setTimeout(() => {
+        //   navigate(`/userPosts`);
+        // }, 1000);
+        navigate(`/userPosts`);
 
       } else {
         // Handle unsuccessful authentication (e.g., display an error message)
@@ -47,12 +61,7 @@ function Login() {
 
 
   };
-  useEffect(() => {
-    if (user) {
-      localStorage.setItem("userEmail", user);
-      localStorage.setItem("lastActive", Date.now());
-    }
-  }, [user]);
+
 
   return (
     <div className="login-container">

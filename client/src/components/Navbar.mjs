@@ -6,22 +6,27 @@ import { UserContext } from '../context/UserContext.mjs';
 function Navbar() {
   const { user, setUser } = useContext(UserContext);
   const navigate = useNavigate();
-  useEffect(() => {
-    const storedUserEmail = localStorage.getItem("userEmail");
-    const storedLastActive = localStorage.getItem("lastActive");
-    const currentTime = Date.now();
+  // console.log("in navbar saving");
+  // console.log(user);
 
-    if (
-      storedUserEmail &&
-      storedLastActive &&
-      currentTime - storedLastActive < 15 * 60 * 1000
-    ) {
-      setUser(storedUserEmail);
-    }
-  }, []);
+  // useEffect(() => {
+  //   const storedUser = localStorage.getItem("user");
+  //   const storedLastActive = localStorage.getItem("lastActive");
+  //   const currentTime = Date.now();
+  //   console.log("storedUser:", storedUser);
+  //   console.log("storedLastActive:", storedLastActive);
+  //   console.log("currentTime:", currentTime);
+  //   if (
+  //     storedUser &&
+  //     storedLastActive &&
+  //     currentTime - storedLastActive < 15 * 60 * 1000
+  //   ) {
+  //     setUser(JSON.parse(storedUser));
+  //   }
+  // }, []);
   const handleLogout = () => {
     setUser(null);
-    localStorage.removeItem("userEmail");
+    localStorage.removeItem("user");
     localStorage.removeItem("lastActive");
     navigate("/login");
   };
