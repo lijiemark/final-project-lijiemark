@@ -13,7 +13,7 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   useEffect(() => {
-    console.log("Changing background.");
+    // console.log("Changing background.");
 
     document.body.style.backgroundImage = `url("${process.env.PUBLIC_URL}/img/login-img-2.jpeg")`;
     document.body.style.backgroundSize = 'cover';
@@ -29,11 +29,11 @@ function Login() {
     };
   }, []);
   useEffect(() => {
-    console.log("in here!");
-    console.log(user);
+    // console.log("in here!");
+    // console.log(user);
     if (user) {
-      console.log("Saving user to localStorage:", user);
-      console.log("here!!!!!!!!!!!!!!!!!!!");
+      // console.log("Saving user to localStorage:", user);
+      // console.log("here!!!!!!!!!!!!!!!!!!!");
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("lastActive", Date.now());
     }
@@ -43,39 +43,31 @@ function Login() {
     event.preventDefault();
 
     try {
-      const response = await axios.post('http://localhost:3001/login', {
-        // const response = await axios.post('https://lijie-fit-journal.herokuapp.com/login', {
-
+      const response = await axios.post(`https://lijie-fit-journal.herokuapp.com/login`, {
         email: email,
         password: password,
       });
-      console.log(email);
 
-      console.log("here's the response:");
-      console.log(response.data);
       if (response.status === 200) {
-        console.log("here before creating the post");
-        console.log(email);
-        setUser({ username: response.data.username, email: response.data.email, height: response.data.height, weight: response.data.weight, age: response.data.age });
-        console.log("User set:", user);
-        console.log("setUser called");
-        // setTimeout(() => {
-        //   navigate(`/userPosts`);
-        // }, 1000);
-        navigate(`/userPosts`);
+        setUser({
+          username: response.data.username,
+          email: response.data.email,
+          height: response.data.height,
+          weight: response.data.weight,
+          age: response.data.age,
+        });
 
-      } else {
-        // Handle unsuccessful authentication (e.g., display an error message)
-        console.error("Authentication failed.");
+        navigate(`/userPosts`);
       }
     } catch (error) {
-      console.error(error);
+      // console.error(error);
+
+      if (error.response && error.response.status === 401) {
+        alert("Authentication failed. Wrong email or password.");
+      } else {
+        console.error("An error occurred during the login process.");
+      }
     }
-
-    // navigate(`/`);
-
-
-
   };
 
 

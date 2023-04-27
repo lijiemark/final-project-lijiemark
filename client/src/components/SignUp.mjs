@@ -16,7 +16,7 @@ function SignUp() {
   const [confirmPassword, setConfirmPassword] = useState('');
   const { setUser } = useContext(UserContext);
   useEffect(() => {
-    console.log("Changing background.");
+    // console.log("Changing background.");
 
     document.body.style.backgroundImage = `url("${process.env.PUBLIC_URL}/img/signup-img.jpeg")`;
     document.body.style.backgroundSize = 'cover';
@@ -33,27 +33,27 @@ function SignUp() {
   }, []);
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(username, email, password);
+    // console.log(username, email, password);
     if (password !== confirmPassword) {
-      console.log("Passwords don't match");
+      alert("Passwords don't match");
       return;
     }
 
     try {
-      console.log(username);
-      const response = await axios.post('http://localhost:3001/signup', {
-        // const response = await axios.post('https://lijie-fit-journal.herokuapp.com/signup', {
+      // console.log(username);
+      // const response = await axios.post('http://localhost:3001/signup', {
+      const response = await axios.post('https://lijie-fit-journal.herokuapp.com/signup', {
 
         username: username,
         email: email,
         password: password,
       });
-      console.log(response.data);
+      // console.log(response.data);
       setUser({ username: username, email: email });
       navigate(`/createPost`);
 
     } catch (error) {
-      console.log("here eroor!!");
+      // console.log("here eroor!!");
       console.error(error);
     }
   };

@@ -5,7 +5,7 @@ import './UserPosts.css';
 import { Link } from 'react-router-dom';
 
 
-function UserPosts({ }) {
+function UserPosts() {
   // const { email } = useParams();
   const { user } = useContext(UserContext);
   const email = user.email;
@@ -13,8 +13,8 @@ function UserPosts({ }) {
   const [posts, setPosts] = useState([]);
   const handleDelete = async (postId) => {
     try {
-      await axios.delete(`http://localhost:3001/deletePost/${postId}`);
-      // await axios.delete(`https://lijie-fit-journal.herokuapp.com/deletePost/${postId}`);
+      // await axios.delete(`http://localhost:3001/deletePost/${postId}`);
+      await axios.delete(`https://lijie-fit-journal.herokuapp.com/deletePost/${postId}`);
 
       // Filter out the deleted post from the posts state
       setPosts(posts.filter((post) => post._id !== postId));
@@ -31,7 +31,7 @@ function UserPosts({ }) {
     return `${year}-${month}-${day}`;
   };
   const filteredPosts = posts.filter((post) => {
-    const postDate = new Date(post.createdAt).toLocaleDateString();
+    // const postDate = new Date(post.createdAt).toLocaleDateString();
     // console.log(post.title)
     // console.log(postDate);
     // console.log(formatDate(new Date(post.createdAt)));
@@ -59,19 +59,19 @@ function UserPosts({ }) {
 
   useEffect(() => {
     const fetchPosts = async () => {
-      const response = await axios.get(`http://localhost:3001/posts/${email}`);
-      // const response = await axios.get(`https://lijie-fit-journal.herokuapp.com/posts/${email}`);
+      // const response = await axios.get(`http://localhost:3001/posts/${email}`);
+      const response = await axios.get(`https://lijie-fit-journal.herokuapp.com/posts/${email}`);
       const sortedPosts = response.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
       setPosts(sortedPosts);
     };
     fetchPosts();
   }, [email]);
   useEffect(() => {
-    console.log("in here!");
-    console.log(user);
+    // console.log("in here!");
+    // console.log(user);
     if (user) {
-      console.log("Saving user to localStorage:", user);
-      console.log("here!!!!!!!!!!!!!!!!!!!");
+      // console.log("Saving user to localStorage:", user);
+      // console.log("here!!!!!!!!!!!!!!!!!!!");
       localStorage.setItem("user", JSON.stringify(user));
       localStorage.setItem("lastActive", Date.now());
     }

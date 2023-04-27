@@ -12,7 +12,7 @@ function MyAccount() {
 
   const handleUpdate = async () => {
     try {
-      const response = await fetch(`http://localhost:3001/user/update/${user.email}`, {
+      const response = await fetch(`https://lijie-fit-journal.herokuapp.com/user/update/${user.email}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

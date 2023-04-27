@@ -8,7 +8,7 @@ function CreatePost() {
   const navigate = useNavigate();
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   // console.log(user);
   const [showAlert, setShowAlert] = useState(false);
 
@@ -25,7 +25,10 @@ function CreatePost() {
       return;
     }
     try {
-      await axios.post('http://localhost:3001/createPost', {
+      // await axios.post('http://localhost:3001/createPost', {
+      await axios.post('https://lijie-fit-journal.herokuapp.com/createPost', {
+
+
         title: title,
         content: content,
         email: user.email,

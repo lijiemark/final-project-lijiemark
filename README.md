@@ -30,6 +30,10 @@ An Example User:
   username: "smartFit001",
   hash: // a password hash,
   posts: // an array of references to Post documents
+  email: "smart@nyu.edu",
+  height: 175,
+  weight: 58,
+  age: 22,
 }
 ```
 

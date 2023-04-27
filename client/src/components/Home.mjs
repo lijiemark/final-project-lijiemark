@@ -7,7 +7,7 @@ function Home() {
   const { user, setUser } = useContext(UserContext);
   const location = useLocation();
   useEffect(() => {
-    console.log("Changing background.");
+    // console.log("Changing background.");
 
     document.body.style.backgroundImage = `url("${process.env.PUBLIC_URL}/img/fitJournal-3.jpeg")`;
     document.body.style.backgroundSize = 'cover';

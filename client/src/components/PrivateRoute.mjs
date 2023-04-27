@@ -6,8 +6,8 @@ import { UserContext } from '../context/UserContext.mjs';
 function PrivateRoute({ children }) {
   const { user } = useContext(UserContext);
 
-  console.log("here in private route");
-  console.log(user);
+  // console.log("here in private route");
+  // console.log(user);
   if (user) {
     return children;
   } else {
