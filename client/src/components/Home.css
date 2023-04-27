@@ -1,0 +1,33 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: calc(40vh - 90px);
+  max-width: 650px;
+  margin: auto;
+  padding: 1rem;
+  background-color: rgba(255, 255, 255, 0.7);
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+/* .content-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 80vh;
+  justify-content: center;
+  margin: 0;
+} */
+
+
+h1 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.motivational-quote {
+  font-size: 1.2rem;
+  text-align: center;
+  max-width: 600px;
+}
