@@ -34,3 +34,23 @@
   margin-right: 5px;
   color: #555;
 }
+
+.edit-button {
+  background-color: #4caf50;
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 10px 2px;
+  cursor: pointer;
+  border-radius: 4px;
+  transition-duration: 0.4s;
+}
+
+.edit-button:hover {
+  background-color: #45a049;
+  color: white;
+}

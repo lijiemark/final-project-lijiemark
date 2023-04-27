@@ -9,7 +9,8 @@ function CreatePost() {
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
   const { user, setUser } = useContext(UserContext);
-  console.log(user);
+  // console.log(user);
+  const [showAlert, setShowAlert] = useState(false);
 
 
   const [week, setWeek] = useState('');
@@ -18,6 +19,11 @@ function CreatePost() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (trainingListItems.length === 0 || trainingListItems.some(item => !item.name)) {
+      setShowAlert(true);
+      setTimeout(() => setShowAlert(false), 3000);
+      return;
+    }
     try {
       await axios.post('http://localhost:3001/createPost', {
         title: title,
@@ -37,7 +43,7 @@ function CreatePost() {
 
   return (
     <div className="create-post-container">
-      <h1>Welcome, ({user.username}) ({user.email})</h1>
+      <h1>Write down today's journal... {user.username}!</h1>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="title">Title</label>
@@ -164,7 +170,11 @@ function CreatePost() {
         <button type="submit">Submit Post</button>
 
       </form>
-
+      {showAlert && (
+        <div className="alert-box">
+          Please enter at least one training item!
+        </div>
+      )}
     </div>
 
   );

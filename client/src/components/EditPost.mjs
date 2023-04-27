@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom'; // Import useParams
 import { useNavigate } from 'react-router-dom';
+import './EditPost.css';
 
 function EditPost({ history }) {
   const navigate = useNavigate();
@@ -69,74 +70,87 @@ function EditPost({ history }) {
 
   return (
     <div>
-      <h1>Edit Post</h1>
-      <form onSubmit={handleSubmit}>
-        <label>Title:</label>
-        <input
-          type="text"
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-        <label>Content:</label>
-        <textarea
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-        />
-        <label>Training List:</label>
-        <ul>
-          {trainingList.map((item, index) => (
-            <li key={index}>
-              <input
-                type="checkbox"
-                checked={item.checked}
-                onChange={() => handleCheckItem(index)}
-              />
-              <input
-                type="text"
-                value={item.name}
-                onChange={(e) => {
-                  const updatedTrainingList = [...trainingList];
-                  updatedTrainingList[index].name = e.target.value;
-                  setTrainingList(updatedTrainingList);
-                }}
-              />
-              <input
-                type="text"
-                value={item.sets}
-                placeholder="Sets"
-                onChange={(e) => {
-                  const updatedTrainingList = [...trainingList];
-                  updatedTrainingList[index].sets = e.target.value;
-                  setTrainingList(updatedTrainingList);
-                }}
-              />
-              <input
-                type="text"
-                value={item.reps}
-                placeholder="Reps"
-                onChange={(e) => {
-                  const updatedTrainingList = [...trainingList];
-                  updatedTrainingList[index].reps = e.target.value;
-                  setTrainingList(updatedTrainingList);
-                }}
-              />
-              <input
-                type="text"
-                value={item.intervals}
-                placeholder="Intervals"
-                onChange={(e) => {
-                  const updatedTrainingList = [...trainingList];
-                  updatedTrainingList[index].intervals = e.target.value;
-                  setTrainingList(updatedTrainingList);
-                }}
-              />
-              <button type="button" onClick={() => handleDeleteItem(index)}>Delete</button>
-            </li>
-          ))}
-        </ul>
-        <button type="button" onClick={handleAddItem}>Add Item</button>
-        <button type="submit">Save</button>
-      </form>
+      <div className="edit-container">
+
+        <h1>Edit Post</h1>
+        <form onSubmit={handleSubmit}>
+          <label>Title:</label>
+          <input
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <label>Content:</label>
+          <textarea
+            value={content}
+            onChange={(e) => setContent(e.target.value)}
+          />
+          <label>Training List:</label>
+          <ul>
+            {trainingList.map((item, index) => (
+              <li key={index}>
+                <span>Done?   </span>
+
+                <input
+                  type="checkbox"
+                  checked={item.checked}
+                  onChange={() => handleCheckItem(index)}
+                />
+                <br></br>
+                <br></br>
+                <span>Exercise Name: </span>
+                <input
+                  type="text"
+                  value={item.name}
+                  placeholder="Exercise Name"
+                  onChange={(e) => {
+                    const updatedTrainingList = [...trainingList];
+                    updatedTrainingList[index].name = e.target.value;
+                    setTrainingList(updatedTrainingList);
+                  }}
+                />
+                <span>Sets: </span>
+                <input
+                  type="text"
+                  value={item.sets}
+                  placeholder="Sets"
+                  onChange={(e) => {
+                    const updatedTrainingList = [...trainingList];
+                    updatedTrainingList[index].sets = e.target.value;
+                    setTrainingList(updatedTrainingList);
+                  }}
+                />
+                <span>Reps: </span>
+                <input
+                  type="text"
+                  value={item.reps}
+                  placeholder="Reps"
+                  onChange={(e) => {
+                    const updatedTrainingList = [...trainingList];
+                    updatedTrainingList[index].reps = e.target.value;
+                    setTrainingList(updatedTrainingList);
+                  }}
+                />
+                <span>Intervals: </span>
+                <input
+                  type="text"
+                  value={item.intervals}
+                  placeholder="Intervals"
+                  onChange={(e) => {
+                    const updatedTrainingList = [...trainingList];
+                    updatedTrainingList[index].intervals = e.target.value;
+                    setTrainingList(updatedTrainingList);
+                  }}
+                />
+                <button className="button delete" type="button" onClick={() => handleDeleteItem(index)}>Delete</button>
+              </li>
+            ))}
+          </ul>
+          <button className="button add" type="button" onClick={handleAddItem}>Add Item</button>
+          <button className="button" type="submit">Save</button>
+        </form>
+      </div>
+
     </div>
   );
 }

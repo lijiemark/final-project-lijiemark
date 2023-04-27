@@ -13,6 +13,22 @@ function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   useEffect(() => {
+    console.log("Changing background.");
+
+    document.body.style.backgroundImage = `url("${process.env.PUBLIC_URL}/img/login-img-2.jpeg")`;
+    document.body.style.backgroundSize = 'cover';
+    document.body.style.backgroundPosition = 'center';
+    document.body.style.backgroundRepeat = 'no-repeat';
+
+
+    return () => {
+      document.body.style.backgroundImage = '';
+      document.body.style.backgroundSize = '';
+      document.body.style.backgroundPosition = '';
+      document.body.style.backgroundRepeat = '';
+    };
+  }, []);
+  useEffect(() => {
     console.log("in here!");
     console.log(user);
     if (user) {
@@ -40,7 +56,7 @@ function Login() {
       if (response.status === 200) {
         console.log("here before creating the post");
         console.log(email);
-        setUser({ username: response.data.username, email: response.data.email });
+        setUser({ username: response.data.username, email: response.data.email, height: response.data.height, weight: response.data.weight, age: response.data.age });
         console.log("User set:", user);
         console.log("setUser called");
         // setTimeout(() => {
@@ -64,8 +80,8 @@ function Login() {
 
 
   return (
-    <div className="login-container">
-      <form onSubmit={handleSubmit}>
+    <div className="auth-container">
+      <form className="form" onSubmit={handleSubmit}>
         <div className="form-group">
           <label htmlFor="email">Email</label>
           <input

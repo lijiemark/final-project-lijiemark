@@ -22,6 +22,9 @@ const User = new mongoose.Schema({
   username: { type: String, required: true },
   email: { type: String, required: true },
   hash: { type: String, required: true },
+  height: { type: Number },
+  weight: { type: Number },
+  age: { type: Number },
   posts: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Post' }]
 });
 

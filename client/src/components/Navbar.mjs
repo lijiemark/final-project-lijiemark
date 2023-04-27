@@ -42,6 +42,8 @@ function Navbar() {
 
   return (
     <nav className="navbar">
+      <img className="logo" src="../img/fitJournal-2.png" alt="Logo" />
+
       {!user && (
         <>
           <button onClick={() => navigate('/login')}>Log In</button>
@@ -54,6 +56,7 @@ function Navbar() {
           <button onClick={() => navigate('/createPost')}>Create Post</button>
           {/* <button onClick={() => handleRedirect('/userPosts')}>All My Posts</button> */}
           <button onClick={() => navigate('/userPosts')}>All My Posts</button>
+          <button onClick={() => navigate('/myAccount')}>My Status</button>
 
           <button onClick={handleLogout}>Log Out</button>
         </>

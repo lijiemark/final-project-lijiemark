@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import './Post.css';
 
 function Post({ email }) {
   const { id } = useParams();
   const [post, setPost] = useState(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchPost = async () => {
@@ -17,7 +18,9 @@ function Post({ email }) {
     fetchPost();
 
   }, [id]);
-
+  const handleEdit = () => {
+    navigate(`/edit-post/${post._id}`);
+  };
   if (!post) {
     return <div>Loading...</div>;
   }
@@ -44,6 +47,8 @@ function Post({ email }) {
           </li>
         ))}
       </ul>
+      <button className="edit-button" onClick={handleEdit}>Edit</button>
+
     </div>
   );
 }

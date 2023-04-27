@@ -90,7 +90,21 @@ app.get('/editpost/:id', async (req, res) => {
     res.status(500).send({ error: 'Server error: Unable to get post' });
   }
 });
-
+app.put('/user/update/:email', async (req, res) => {
+  try {
+    console.log("here in update");
+    const { username, height, weight, age } = req.body;
+    const updatedUser = await UserModel.findOneAndUpdate(
+      { email: req.params.email },
+      { username, height, weight, age },
+      { new: true }
+    );
+    res.status(200).json(updatedUser);
+  } catch (error) {
+    console.error('Server error:', error);
+    res.status(500).send({ error: 'Server error: Unable to update user' });
+  }
+});
 app.put('/editpost/:id', async (req, res) => {
   const { title, content, trainingList } = req.body;
 

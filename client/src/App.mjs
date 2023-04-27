@@ -10,85 +10,39 @@ import Post from './components/Post.mjs';
 import Navbar from './components/Navbar.mjs';
 import { UserContextProvider } from './context/UserContext.mjs';
 import PrivateRoute from "./components/PrivateRoute.mjs";
+import MyAccount from './components/MyAccount.mjs';
+
+import './App.css';
 
 function App() {
   return (
     <Router>
       <UserContextProvider>
-        <Navbar />
+        <div className="app-container">
 
-        <Routes>
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/home/:email" element={<Home />} />
-          {/* <Route path="/createPost/:email" element={<PrivateRoute><CreatePost /></PrivateRoute>} /> */}
-          <Route path="/createPost" element={<PrivateRoute><CreatePost /></PrivateRoute>} />
-          {/* <Route path="/userPosts/:email" element={<PrivateRoute><UserPosts /></PrivateRoute>} /> */}
-          <Route path="/userPosts" element={<PrivateRoute><UserPosts /></PrivateRoute>} />
-          <Route path="/post/:id/:email" element={<PrivateRoute><Post /></PrivateRoute>} />
-          <Route path="/edit-post/:id/:email" element={<PrivateRoute><EditPost /></PrivateRoute>} />
-        </Routes>
+          <Navbar />
+          <div className="content-container">
+
+            <Routes>
+              <Route path="/login" element={<Login />} />
+              <Route path="/signup" element={<SignUp />} />
+              <Route path="/home/:email" element={<Home />} />
+              {/* <Route path="/createPost/:email" element={<PrivateRoute><CreatePost /></PrivateRoute>} /> */}
+              <Route path="/createPost" element={<PrivateRoute><CreatePost /></PrivateRoute>} />
+              {/* <Route path="/userPosts/:email" element={<PrivateRoute><UserPosts /></PrivateRoute>} /> */}
+              <Route path="/userPosts" element={<PrivateRoute><UserPosts /></PrivateRoute>} />
+              <Route path="/post/:id/" element={<PrivateRoute><Post /></PrivateRoute>} />
+              <Route path="/edit-post/:id" element={<PrivateRoute><EditPost /></PrivateRoute>} />
+              <Route path="/myAccount" element={<PrivateRoute><MyAccount /></PrivateRoute>} />
+
+            </Routes>
+          </div>
+        </div>
+
       </UserContextProvider>
     </Router>
   );
 }
 export default App
-// function EmailRouteWrapper({ children, ...rest }) {
-//   const { email } = useParams();
-//   return React.cloneElement(children, { email, ...rest });
-// }
-// function App() {
-//   return (
-//     <Router>
-//       <UserContextProvider>
-//         <Navbar />
 
-//         <Routes>
-//           <Route path="/login" element={<Login />} />
-//           <Route path="/signup" element={<SignUp />} />
-//           {/* <Route path="/home" element={<Home />} /> */}
-//           <Route path="/home/:email" element={<Home />} />
-//           {/* <Route
-//             path="/createPost/:email"
-//             element={
-//               <EmailRouteWrapper>
-//                 <CreatePost />
-//               </EmailRouteWrapper>
-//             }
-//           />
-//           <Route
-//             path="/post/:id/:email"
-//             element={
-//               <EmailRouteWrapper>
-//                 <Post />
-//               </EmailRouteWrapper>
-//             }
-//           />
-
-//           <Route
-//             path="/edit-post/:id/:email"
-//             element={<EmailRouteWrapper>
-//               <EditPost />
-//             </EmailRouteWrapper>}
-//           />
-//           <Route
-//             path="/userPosts/:email"
-//             element={
-//               <EmailRouteWrapper>
-//                 <UserPosts />
-//               </EmailRouteWrapper>
-//             }
-//           /> */}
-
-//           {/* Add other routes here */}
-//           <Route path="/createPost/:email" element={<PrivateRoute element={<CreatePost />} />} />
-//           <Route path="/userPosts/:email" element={<PrivateRoute element={<UserPosts />} />} />
-//           <Route path="/post/:id/:email" element={<PrivateRoute element={<Post />} />} />
-//           <Route path="/edit-post/:id/:email" element={<PrivateRoute element={<EditPost />} />} />
-//         </Routes>
-//       </UserContextProvider>
-
-//     </Router>
-//   )
-// }
 
